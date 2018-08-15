@@ -1,0 +1,35 @@
+<%- include('header') %>
+
+<% if (!locals.error) error = {} %>
+
+<legend><% if (locals.edit && edit){ %>Edit<% } else { %>Add<% } %> a meme</legend>
+
+<% if (locals.success && success){ %><center style="font-weight: bold;color:green;margin-bottom: 20px;">The meme has been successfully <% if (locals.edit && edit){ %>edited<% } else { %>added<% } %>!</center><% } %>
+
+<form method="post" action="" class="form-horizontal" encType="multipart/form-data">
+	<div class="form-group <% if (error['title']) { %>has-error<% } %>">
+		<label class="control-label col-xs-12 col-md-4" for="title">Title:</label>
+		<div class="col-xs-12 col-md-8">
+			<input type="text" name="title" class="form-control" <% if (locals.title){ %>value="<%= title %>"<% } %> />
+			<% if (error['title']){ %><span class="help-block"><%= error['title'] %></span><% } %>
+		</div>
+	</div>
+	
+	<% if (!locals.edit || !edit){ %>
+	<div class="form-group <% if (error['file']){ %>has-error<% } %>">
+		<label class="control-label col-xs-12 col-md-4" for="file">File:</label>
+		<div class="col-xs-12 col-md-8">
+			<input type="file" name="file" class="form-control-file" />
+			<% if (error['file']){ %><span class="help-block"><%= error['file'] %></span><% } %>
+		</div>
+	</div>
+	<% } %>
+	
+	<div class="form-group">
+		<div class="col-xs-12 col-md-8 col-md-offset-4">
+			<button class="btn btn-primary"><% if (locals.edit && edit){ %>Edit<% } else { %>Add<% } %></button> - <a href="/admin/memes">Back</a>
+		</div>
+	</div>
+</form>
+
+<%- include('footer') %>

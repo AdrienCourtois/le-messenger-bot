@@ -1,0 +1,40 @@
+<%- include('header') %>
+
+<legend><% if (locals.edit && edit){ %>Edit<% } else { %>Add<% } %> a code</legend>
+
+<% if (!locals.error) var error = {}; %>
+
+<% if (locals.success && success){ %><center style="font-weight: bold;color:green;margin-bottom: 20px;">The code has been successfully <% if (locals.edit && edit){ %>edited<% } else { %>added<% } %>!</center><% } %>
+
+<form method="post" action="" class="form-horizontal">
+	<div class="form-group <% if (error['name']) { %>has-error<% } %>">
+		<label class="control-label col-xs-12 col-md-4" for="name">Name:</label>
+		<div class="col-xs-12 col-md-8">
+			<input type="text" name="name" class="form-control" <% if (locals.name){ %>value="<%= name %>"<% } %> />
+			<% if (error['name']){ %><span class="help-block"><%= error['name'] %></span><% } %>
+		</div>
+	</div>
+	
+	<div class="form-group <% if (error['nb']) { %>has-error<% } %>">
+		<label class="control-label col-xs-12 col-md-4" for="points">Points:</label>
+		<div class="col-xs-12 col-md-8">
+			<input type="text" name="points" class="form-control" <% if (locals.points){ %>value="<%= points %>"<% } %> />
+			<% if (error['points']){ %><span class="help-block"><%= error['points'] %></span><% } %>
+		</div>
+	</div>
+	
+	<div class="form-group <% if (error['nb']) { %>has-error<% } %>">
+		<label class="control-label col-xs-12 col-md-4" for="nb">Total usage number:</label>
+		<div class="col-xs-12 col-md-8">
+			<input type="text" name="nb" class="form-control" <% if (locals.nb){ %>value="<%= nb %>"<% } %> />
+			<% if (error['nb']){ %><span class="help-block"><%= error['nb'] %></span><% } %>
+			<span class="help-block">Please enter <strong>-1</strong> if it can be used limitlessly (but still once per user).</span>
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<div class="col-xs-12 col-md-8 col-md-offset-4"><button class="btn btn-primary"><% if (locals.edit && edit){ %>Edit<% } else { %>Add<% } %></button> - <a href="/admin/codes">Back</a></div>
+	</div>
+</form>
+
+<%- include('footer') %>

@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="fr">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	
+		<link rel="stylesheet" href="/css/bootstrap.min.css" />
+		<script type="text/javascript" src="/js/jquery.js"></script>
+		<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+		
+		<style>
+			.inner-container {
+				border: 1px solid rgb(200, 200, 200);
+				padding: 20px;
+				border-radius: 4px;
+			}
+			
+			.navbar {
+				margin-top: 20px;
+			}
+			
+			.nav img {
+				margin-top: 5px;
+				height: 40px;
+				margin-left: 10px;
+				float: left;
+			}
+			.nav h1{
+				padding-top: 15px;
+				margin: 0;
+			}
+			.table-photos {
+				margin: 40px 0;
+			}
+			span.page-link:hover{
+				background: white!important;
+			}
+		</style>
+		
+		<script>
+			$(document).ready(function(){
+				$('.nav.navbar-nav li a').each(function(){
+					if (($(this).attr('href') == window.location.pathname.substr(0, $(this).attr('href').length) && !$(this).hasClass('full')) || $(this).attr('href') == window.location.pathname)
+						$(this).parent().addClass('active');
+				});
+			});
+			$(document).ready(function(){
+				$('[data-toggle="popover"]').popover(); 
+			});
+		</script>
+
+		<title>YOURNAME</title>
+	</head>
+  
+	<body>
+		<div class="container">
+			<div class="navbar navbar-default">
+				<ul class="nav navbar-nav">
+					<img src="/img/logo-min.png" />
+					<h1 class="navbar-brand mb-0">YOURNAME</h1>
+					<% if (locals.adminUser){ %>
+					<li><a href="/admin" class="full">Accueil</a></li>
+					<li><a href="/admin/memes">Memes</a></li>
+					<li><a href="/admin/quizz">Quizz</a></li>
+					<li><a href="/admin/codes">Codes</a></li>
+					<% } else { %>
+					<li><a href="/login">Connexion</a></li>
+					<% } %>
+				</ul>
+			</div>
+			
+			<div class="inner-container">

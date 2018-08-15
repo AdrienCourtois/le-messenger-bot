@@ -1,0 +1,17 @@
+<%- include('header') %>
+
+<legend>Delete a meme</legend>
+
+<% if (!locals.success || !success){ %>
+Are you sure you want to delete this meme?
+
+<form method="post" action="" style="text-align: center;">
+	<button class="btn btn-primary">Yes</button> - <a href="/admin/memes">Back</a>
+</form>
+
+<% } else { %>
+<center style="color: green; font-weight: bold;">The meme has been successfully deleted.</center><br />
+<a href="/admin/memes">Back</a>
+<% } %>
+
+<%- include('footer') %>

@@ -1,0 +1,81 @@
+<%- include('header') %>
+
+<% if (!locals.error) error = {} %>
+
+<legend><% if (locals.edit && edit){ %>Edit<% } else { %>Add<% } %> a question</legend>
+
+<% if (locals.success && success){ %><center style="font-weight: bold;color:green;margin-bottom: 20px;">The question has been successfully <% if (locals.edit && edit){ %>edited<% } else { %>added<% } %>!</center><% } %>
+
+<form method="post" action="" class="form-horizontal" encType="multipart/form-data">
+	<div class="form-group <% if (error['question']) { %>has-error<% } %>">
+		<label class="control-label col-xs-12 col-md-4" for="question">Question:</label>
+		<div class="col-xs-12 col-md-8">
+			<input type="text" name="question" class="form-control" <% if (locals.question){ %>value="<%= question %>"<% } %> />
+			<% if (error['question']){ %><span class="help-block"><%= error['question'] %></span><% } %>
+		</div>
+	</div>
+	
+	<div class="form-group <% if (error['rep1']) { %>has-error<% } %>">
+		<label class="control-label col-xs-12 col-md-4" for="rep1">Answer 1:</label>
+		<div class="col-xs-12 col-md-8">
+			<input type="text" name="rep1" class="form-control" <% if (locals.rep1){ %>value="<%= rep1 %>"<% } %> />
+			<% if (error['rep1']){ %><span class="help-block"><%= error['rep1'] %></span><% } %>
+		</div>
+	</div>
+	
+	<div class="form-group <% if (error['rep2']) { %>has-error<% } %>">
+		<label class="control-label col-xs-12 col-md-4" for="rep2">Answer 2:</label>
+		<div class="col-xs-12 col-md-8">
+			<input type="text" name="rep2" class="form-control" <% if (locals.rep2){ %>value="<%= rep2 %>"<% } %> />
+			<% if (error['rep2']){ %><span class="help-block"><%= error['rep2'] %></span><% } %>
+		</div>
+	</div>
+	
+	<div class="form-group <% if (error['rep3']) { %>has-error<% } %>">
+		<label class="control-label col-xs-12 col-md-4" for="rep3">Answer 3:</label>
+		<div class="col-xs-12 col-md-8">
+			<input type="text" name="rep3" class="form-control" <% if (locals.rep3){ %>value="<%= rep3 %>"<% } %> />
+			<% if (error['rep3']){ %><span class="help-block"><%= error['rep3'] %></span><% } %>
+		</div>
+	</div>
+	
+	<div class="form-group <% if (error['correct_answer']) { %>has-error<% } %>">
+		<label class="control-label col-xs-12 col-md-4" for="correct_answer">Correct answer:</label>
+		<div class="col-xs-12 col-md-8">
+			<select name="correct_answer" class="form-control">
+				<option value="1" <% if (locals.correct_answer && correct_answer == "1"){ %>selected="selected"<% } %>>Answer 1</option>
+				<option value="2" <% if (locals.correct_answer && correct_answer == "2"){ %>selected="selected"<% } %>>Answer 2</option>
+				<option value="3" <% if (locals.correct_answer && correct_answer == "3"){ %>selected="selected"<% } %>>Answer 3</option>
+			</select>
+			<% if (error['correct_answer']){ %><span class="help-block"><%= error['correct_answer'] %></span><% } %>
+		</div>
+	</div>
+	
+	<% if (!locals.edit || !edit){ %>
+	<div class="form-group <% if (error['file']){ %>has-error<% } %>">
+		<label class="control-label col-xs-12 col-md-4" for="file">Photo:</label>
+		<div class="col-xs-12 col-md-8">
+			<input type="file" name="file" class="form-control-file" />
+			
+			<span class="help-block">Not mandatory</span>
+			<% if (error['file']){ %><span class="help-block"><%= error['file'] %></span><% } %>
+		</div>
+	</div>
+	<% } %>
+	
+	<div class="form-group <% if (error['points']) { %>has-error<% } %>">
+		<label class="control-label col-xs-12 col-md-4" for="points">Points:</label>
+		<div class="col-xs-12 col-md-8">
+			<input type="text" name="points" class="form-control" <% if (locals.points){ %>value="<%= points %>"<% } %> />
+			<% if (error['points']){ %><span class="help-block"><%= error['points'] %></span><% } %>
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<div class="col-xs-12 col-md-8 col-md-offset-4">
+			<button class="btn btn-primary"><% if (locals.edit && edit){ %>Edit<% } else { %>Add<% } %></button> - <a href="/admin/quizz">Back</a>
+		</div>
+	</div>
+</form>
+
+<%- include('footer') %>

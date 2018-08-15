@@ -1,0 +1,71 @@
+<%- include('header') %>
+
+<legend>Quizz Panel</legend>
+
+<button class="btn btn-primary" onclick="window.location.href='/admin/quizz/ajouter';">Add a question</button>
+<div class="pull-right">
+	<form method="post" action="/admin/quizz/1" class="form-inline">
+		<div class="input-group">
+		   <input type="text" class="form-control" name="query" placeholder="Search:">
+		   <span class="input-group-btn">
+				<button class="btn btn-default" type="button">Go!</button>
+		   </span>
+		</div>
+	</form>
+</div>
+
+<% if (quizz.length != 0) { %>
+<table class="table table-photos">
+	<tr>
+		<th>ID</th>
+		<th>Question</th>
+		<th>Answers</th>
+		<th>Correct answer</th>
+		<th>Photo</th>
+		<th>Points</th>
+		<th>Action</th>
+	</tr>
+	
+	<% for (var i = 0 ; i < quizz.length ; i++){ %>
+	<tr>
+		<td><%= quizz[i].id %></td>
+		<td><%= quizz[i].question %></td>
+		<td>1. <%= quizz[i].rep[0] %><br />2. <%= quizz[i].rep[1] %><br />3. <%= quizz[i].rep[2] %></td>
+		<td><%= quizz[i].rep[parseInt(quizz[i].correct_answer)-1] %></td>
+		<td><% if (quizz[i].photo) { %><a href="<%= quizz[i].photo %>" target="_blank">Link</a><% } else { %>None<% } %></td>
+		<td><%= quizz[i].points %></td>
+		<td><a href="/admin/quizz/editer/<%= quizz[i].id %>">Edit</a>- <a href="/admin/quizz/supprimer/<%= quizz[i].id %>">Delete</a></td>
+	</tr>
+	<% } %>
+</table>
+<% } else { %>
+	<div style="text-align: center; margin-top: 20px;">There is no question to show.</div>
+<% } %>
+
+<% if (pageTotal > 1){ %>
+<nav style="text-align: center;">
+  <ul class="pagination">
+    <li class="page-item <% if (page == 1){ %>disabled<% } %>">
+      <a class="page-link" <% if (page > 1) { %>href="/admin/quizz/<%= (parseInt(page)-1) %><% } %>">Previous</a>
+    </li>
+	
+    <li class="page-item <% if (page == 1){ %>active<% } %>"><a class="page-link" href="/admin/quizz/1">1</a></li>
+	<% if (page > 2){ %>
+    <li class="page-item"><span class="page-link">...</span></li>
+	<% } %>
+	<% if (page != 1 && page != pageTotal){ %>
+	<li class="page-item active"><a class="page-link" href="/admin/quizz/<%=page%>"><%= page %></a></li>
+	<% } %>
+	<% if (page < pageTotal-1){ %>
+    <li class="page-item"><span class="page-link">...</span></li>
+	<% } %>
+    <li class="page-item <% if (page == pageTotal) { %>active <% } %>"><a class="page-link" href="/admin/quizz/<%=pageTotal%>"><%= pageTotal %></a></li>
+	
+    <li class="page-item <% if (page == pageTotal){ %>disabled<% } %>">
+      <a class="page-link" <% if (page < pageTotal){ %>href="/admin/quizz/<%= (page+1) %>"<% } %>>Next</a>
+    </li>
+  </ul>
+</nav>
+<% } %>
+
+<%- include('footer') %>

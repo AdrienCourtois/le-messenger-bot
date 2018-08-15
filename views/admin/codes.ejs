@@ -1,0 +1,59 @@
+<%- include('header') %>
+
+<legend>Codes</legend>
+
+<button class="btn btn-primary" onclick="window.location.href='/admin/codes/ajouter';">Add a code</button>
+
+<% if (locals.codes && codes.length > 0){ %>
+	
+	<table class="table table-photos">
+		<tr>
+			<th>ID</th>
+			<th>URL</th>
+			<th>Name</th>
+			<th>Number of usage left<th>
+			<th>Action</th>
+		</tr>
+		<% for (var i = 0 ; i < codes.length ; i++){ %>
+		<tr>
+			<td><%= codes[i].id %></td>
+			<td><a href="<%=codes[i].url %>" target="_blank">Link</a></td>
+			<td><%= codes[i].name %></td>
+			<td><%= codes[i].left_usage %></td>
+			<td><a href="/admin/codes/editer/<%= codes[i].id %>">Edit</a> - <a href="/admin/codes/supprimer/<%= codes[i].id %>">Delete</a></td>
+		</tr>
+		<% } %>
+	</table>
+	
+<% if (pageTotal > 1){ %>
+<%=pageTotal%>
+<nav style="text-align: center;">
+  <ul class="pagination">
+    <li class="page-item <% if (page == 1){ %>disabled<% } %>">
+      <a class="page-link" <% if (page > 1) { %>href="/admin/codes/<%= (parseInt(page)-1) %><% } %>">Previous</a>
+    </li>
+	
+    <li class="page-item <% if (page == 1){ %>active<% } %>"><a class="page-link" href="/admin/codes/1">1</a></li>
+	<% if (page > 2){ %>
+    <li class="page-item"><span class="page-link">...</span></li>
+	<% } %>
+	<% if (page != 1 && page != pageTotal){ %>
+	<li class="page-item active"><a class="page-link" href="/admin/codes/<%=page%>"><%= page %></a></li>
+	<% } %>
+	<% if (page < pageTotal-1){ %>
+    <li class="page-item"><span class="page-link">...</span></li>
+	<% } %>
+    <li class="page-item <% if (page == pageTotal) { %>active <% } %>"><a class="page-link" href="/admin/codes/<%=pageTotal%>"><%= pageTotal %></a></li>
+	
+    <li class="page-item <% if (page == pageTotal){ %>disabled<% } %>">
+      <a class="page-link" <% if (page < pageTotal){ %>href="/admin/codes/<%= (parseInt(page)+1) %>"<% } %>>Next</a>
+    </li>
+  </ul>
+</nav>
+<% } %>
+	
+<% } else { %>
+	<center>There is no code yet.</center>
+<% } %>
+
+<%- include('footer') %>
